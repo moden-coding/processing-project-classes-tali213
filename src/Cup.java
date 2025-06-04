@@ -13,7 +13,7 @@ public class Cup {
   boolean left = false;
   boolean right = false;
 
-  public Cup(PApplet c) {
+  public Cup(PApplet c) { // initializing the cup variables
     x = 260;
     y = 600;
     speed = 45;
@@ -22,16 +22,16 @@ public class Cup {
     img.resize(100, 100);
   }
 
-  public void move(int dx, int dy) {
+  public void move(int dx, int dy) { //allowing the cup to move left and right
     x += dx;
     y += dy;
   }
 
-  public void move() {
-    if (left && x > 0) {
+  public void move() { // gives the cup movement
+    if (left && x > 0) { // makes sure it can only move between the screen limits, moves left
       move(-5, 0);
     }
-    if (right && x < 500) {
+    if (right && x < 500) { // does not pass the right isde of the screen, moves right
       move(5, 0);
     }
   }
@@ -40,20 +40,20 @@ public class Cup {
     canvas.image(img, x, y);
   }
 
-  public void goRight() {
+  public void goRight() { // makes the cup go right
     right = true;
   }
 
-  public void goLeft() {
+  public void goLeft() { // makes the cup go left
     left = true;
   }
 
-  public void stop() {
+  public void stop() { // makes he cup stop moving
     left = false;
     right = false;
   }
 
-  public boolean touching(Fruit fruit) {
+  public boolean touching(Fruit fruit) { // detects when the cup is touching a fruit
     int fruitLeft = fruit.getX();
     int fruitRight = fruit.getX() + fruit.getWidth();
     int fruitTop = fruit.getY();

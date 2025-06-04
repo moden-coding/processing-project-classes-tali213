@@ -12,7 +12,7 @@ public class Fruit {
     private PApplet canvas;
     private boolean pickle;
 
-    public Fruit(int posx, int posy, PApplet c, boolean isPickle) {
+    public Fruit(int posx, int posy, PApplet c, boolean isPickle) { //initializing the fruit variables
         x = posx;
         y = posy;
         width = 60;
@@ -56,7 +56,7 @@ public class Fruit {
         return height;
     }
 
-    public boolean isPickle(){
+    public boolean isPickle(){ // tell the code if the fruit is a pickle or a strawberry
         return pickle;
     }
 

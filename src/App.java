@@ -14,7 +14,7 @@ public class App extends PApplet {
 
     boolean left = false;
     boolean right = false;
-    private int count = 0;
+    private int count = 0; // variable for the score
     double highScore;
     int scene;
 
@@ -49,7 +49,7 @@ public class App extends PApplet {
         if (scene == 1) {
             playGame();
 
-            if (highScore == 0 || highScore < count) {
+            if (highScore == 0 || highScore < count) { // seeing if the new score is bigger. if it is, making that the new high score
                 highScore = count;
                 saveHighScore();
             }
@@ -63,12 +63,12 @@ public class App extends PApplet {
         }
     }
 
-    public void fruitMaker() {
-        float rx = random(550);
-        float ry = random(-10000);
+    public void fruitMaker() { //creates the strawberries and pickles 
+        float rx = random(550); //fruits can appear between 0 and this x coordinate
+        float ry = random(-10500); // fruits spawn anywhere off the screen between these coordinates
         int x = (int) rx;
         int y = (int) ry;
-        int random = (int) random(10);
+        int random = (int) random(10); //using a random number to determine the amounts of pickles and strawberries
         if (random > 2) {
             Fruit fruit = new Fruit(x, y, this, false);
             fruits.add(fruit);
@@ -78,28 +78,28 @@ public class App extends PApplet {
         }
     }
 
-    public void createFruit() {
-        for (int i = 0; i < 200; i++) {
+    public void createFruit() { 
+        for (int i = 0; i < 300; i++) { // makes 300 fruits
             fruitMaker();
         }
     }
 
-    public void playGame() {
+    public void playGame() { //makes the game screen appear with all of the different components moving
         cup.draw();
         for (int i = 0; i < fruits.size(); i++) {
             Fruit f = fruits.get(i);
             f.display();
             f.move();
 
-            if (cup.touching(f)) {
+            if (cup.touching(f)) { // if the cup touches the pickle, 2 points are taken away
                 if (f.isPickle()) {
                     count -= 2;
-                } else {
+                } else { //if the cup touches the pickle, you get a point
                     count++;
                 }
-                fruits.remove(f);
+                fruits.remove(f); // the fruits get removed when the touch the cup
             }
-            if (f.getY() > 800) {
+            if (f.getY() > 800) { // if the fruits reach the bottom, they are removed from the list
                 fruits.remove(f);
             }
         }
@@ -147,23 +147,23 @@ public class App extends PApplet {
     }
 
     public void saveHighScore() {
-        try (PrintWriter writer = new PrintWriter("highscore.txt")) {
-            writer.println(highScore);
+        try (PrintWriter writer = new PrintWriter("highscore.txt")) { // reading the file
+            writer.println(highScore); // saving current high score
             writer.close();
 
-        } catch (IOException e) {
+        } catch (IOException e) { // catching the errors in reading the file
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
         }
     }
 
     public void readHighScore() {
-        try (Scanner scanner = new Scanner(Paths.get("highscore.txt"))) {
+        try (Scanner scanner = new Scanner(Paths.get("highscore.txt"))) { 
             while (scanner.hasNextLine()) {
                 String row = scanner.nextLine();
                 highScore = Double.valueOf(row);
             }
-        } catch (Exception e) {
+        } catch (Exception e) { //catching any errors
             System.out.println("Error: " + e.getMessage());
         }
     }
